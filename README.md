@@ -1,4 +1,4 @@
-# Django Discussions
+# Django Threaded Discussions
 
 A standalone Django app for threaded discussions with HTMX support. Attach discussions to any model using a simple UUID identifier pattern.
 
@@ -18,15 +18,15 @@ A standalone Django app for threaded discussions with HTMX support. Attach discu
 ### From PyPI (when published)
 
 ```bash
-pip install django-discussions
+pip install django-threaded-discussions
 ```
 
 ### From Source (Development)
 
 ```bash
 # In your workspace directory
-git clone https://github.com/directory-platform/django-discussions.git
-cd django-discussions
+git clone https://github.com/directory-platform/django-threaded-discussions.git
+cd django-threaded-discussions
 pip install -e .
 ```
 
@@ -38,7 +38,7 @@ Add to your workspace `pyproject.toml`:
 [tool.uv.workspace]
 members = [
     "your-project",
-    "django-discussions",
+    "django-threaded-discussions",
 ]
 ```
 
@@ -97,7 +97,7 @@ That's it! No changes to your models required.
 
 ## How It Works
 
-Django Discussions uses a simple `discussion_id` string field to link threads to your content. This means:
+Django Threaded Discussions uses a simple `discussion_id` string field to link threads to your content. This means:
 
 - ✅ No ForeignKeys to your models
 - ✅ No GenericForeignKey complexity
@@ -351,8 +351,8 @@ Discussions are registered in Django admin with search and filtering:
 ### Setup
 
 ```bash
-git clone https://github.com/directory-platform/django-discussions.git
-cd django-discussions
+git clone https://github.com/directory-platform/django-threaded-discussions.git
+cd django-threaded-discussions
 uv sync --extra dev
 ```
 
@@ -400,6 +400,6 @@ Built by the Directory Platform team as part of the directory ecosystem.
 ## Links
 
 - **Documentation**: [Coming soon]
-- **GitHub**: https://github.com/directory-platform/django-discussions
-- **Issues**: https://github.com/directory-platform/django-discussions/issues
-- **PyPI**: https://pypi.org/project/django-discussions/ (after first release)
+- **GitHub**: https://github.com/directory-platform/django-threaded-discussions
+- **Issues**: https://github.com/directory-platform/django-threaded-discussions/issues
+- **PyPI**: https://pypi.org/project/django-threaded-discussions/ (after first release)

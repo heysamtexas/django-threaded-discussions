@@ -1,10 +1,10 @@
-# CLAUDE.md - Django Discussions Package
+# CLAUDE.md - Django Threaded Discussions Package
 
-This file provides guidance to Claude Code when working with the `django-discussions` package.
+This file provides guidance to Claude Code when working with the `django-threaded-discussions` package.
 
 ## Project Overview
 
-**Django Discussions** is a standalone Django package providing threaded discussions that can be attached to any model using a simple UUID/slug identifier pattern. No ForeignKeys, no GenericForeignKey complexity - just a string identifier.
+**Django Threaded Discussions** is a standalone Django package providing threaded discussions that can be attached to any model using a simple UUID/slug identifier pattern. No ForeignKeys, no GenericForeignKey complexity - just a string identifier.
 
 **Key Features**:
 - Zero coupling to parent models
@@ -18,7 +18,7 @@ This file provides guidance to Claude Code when working with the `django-discuss
 ## Package Structure
 
 ```
-django-discussions/
+django-threaded-discussions/
 ├── src/django_discussions/
 │   ├── __init__.py              # Package initialization
 │   ├── apps.py                  # Django app configuration
@@ -173,7 +173,7 @@ This package is part of the Directory Platform workspace:
 
 ```bash
 # From workspace root
-cd django-discussions
+cd django-threaded-discussions
 uv sync --extra dev
 
 # Run tests

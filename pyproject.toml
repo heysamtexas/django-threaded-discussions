@@ -1,5 +1,5 @@
 [project]
-name = "django-discussions"
+name = "django-threaded-discussions"
 version = "0.1.0"
 description = "Standalone Django app for threaded discussions with HTMX support"
 authors = [
@@ -42,9 +42,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/directory-platform/django-discussions"
-Repository = "https://github.com/directory-platform/django-discussions"
-Issues = "https://github.com/directory-platform/django-discussions/issues"
+Homepage = "https://github.com/directory-platform/django-threaded-discussions"
+Repository = "https://github.com/directory-platform/django-threaded-discussions"
+Issues = "https://github.com/directory-platform/django-threaded-discussions/issues"
 
 [build-system]
 requires = ["hatchling"]
