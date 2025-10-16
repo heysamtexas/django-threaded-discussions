@@ -1,0 +1,21 @@
+<div class="card-body">
+    <form action="{% url 'django_discussions:create_thread' discussion_id=discussion_id %}" method="post"
+        id="create-thread-form"
+          hx-post="{% url 'django_discussions:create_thread' discussion_id=discussion_id %}"
+          hx-target="#thread-list"
+          hx-swap="afterbegin">
+        {% csrf_token %}
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="thread_title" class="form-label">Thread Title</label>
+            <input type="text" class="form-control" id="thread_title" name="thread_title" value="{{ thread_title }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="thread_content" class="form-label">Content</label>
+            <textarea class="form-control" id="thread_content" name="thread_content" rows="3" required>{{ thread_content }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Thread</button>
+    </form>
+</div>

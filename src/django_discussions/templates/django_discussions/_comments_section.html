@@ -1,0 +1,15 @@
+{% if success %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ success }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+{% for comment in thread.comments.all %}
+    {% include "django_discussions/_comment.html" %}
+{% endfor %}
+
+<!-- Reset the comment form after successful submission -->
+<script>
+    document.querySelector('#comment-form-{{ thread.id }} textarea').value = '';
+</script>

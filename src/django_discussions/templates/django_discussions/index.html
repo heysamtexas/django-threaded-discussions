@@ -1,0 +1,96 @@
+{% load static %}
+<!-- Discussion section -->
+<div class="mt-5 pt-4 border-top">
+    <h3>Discussions</h3>
+    <div class="alert alert-light">
+        <i class="bi bi-chat-quote"></i>
+        Join the conversation below.
+        {% if not user.is_authenticated %}
+            <a href="{% url 'account_login' %}">Sign in</a> to participate.
+        {% endif %}
+    </div>
+
+{#    <!-- Start a new discussion button -->#}
+{#    {% if user.is_authenticated %}#}
+{#        <div class="mb-4">#}
+{#            <button class="btn btn-primary" disabled>#}
+{#                <i class="bi bi-plus-circle"></i> Start a New Discussion#}
+{#            </button>#}
+{#        </div>#}
+{##}
+{#        <!-- New discussion form -->#}
+{#        <div class="mb-4">#}
+{#            <form action="{% url 'django_discussions:create_thread' entity.id %}" method="post">#}
+{#                {% csrf_token %}#}
+{#                <div class="mb-3">#}
+{#                    <label for="thread_title" class="form-label">Thread Title</label>#}
+{#                    <input type="text" class="form-control" id="thread_title" name="thread_title" required>#}
+{#                </div>#}
+{#                <div class="mb-3">#}
+{#                    <label for="thread_content" class="form-label">Content</label>#}
+{#                    <textarea class="form-control" id="thread_content" name="thread_content" rows="3" required></textarea>#}
+{#                </div>#}
+{#                <button type="submit" class="btn btn-primary">Create Thread</button>#}
+{#            </form>#}
+{#    {% endif %}#}
+
+<!-- Start a new discussion section -->
+{% if user.is_authenticated %}
+<div class="card mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">
+            <button id="btn-show-new-thread-form" class="btn btn-link" type="button"
+                   hx-get="{% url 'django_discussions:create_thread' discussion_id=discussion_id %}"
+                   hx-target="#new-thread-form"
+                   hx-swap="innerHTML"
+                   _="on click
+                      if #new-thread-form.childElementCount > 0
+                        set #new-thread-form.innerHTML to ''
+                        trigger htmx:abort on me
+                      else
+                        add .show to #new-thread-form
+                      end">
+                <i class="bi bi-plus-circle"></i> Start a New Discussion
+            </button>
+        </h5>
+    </div>
+
+    <div id="new-thread-form"></div>
+</div>
+{% endif %}
+
+    <!-- Discussion threads list -->
+    <div class="card mb-4">
+{#        <div class="card-header">#}
+{#            <ul class="nav nav-tabs card-header-tabs">#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link active" href="#">Popular</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="#">Recent</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+
+        <div class="card-body p-0">
+
+            <ul class="list-group list-group-flush" id="thread-list">
+
+                {% for thread in threads %}
+                {% include "django_discussions/_thread_header.html" %}
+                {% empty %}
+                    <li class="list-group-item p-3" id="thread-empty-message">
+                    No threads available yet. Be the first to start a discussion.
+                    </li>
+                {% endfor %}
+                <!-- Thread 5 -->
+{#                {% include "entity/detail/_discussion_thread.html" %}#}
+            </ul>
+        </div>
+
+{#        <div class="card-footer text-center">#}
+{#            <a href="#" class="btn btn-sm btn-outline-secondary">See All Discussions</a>#}
+{#        </div>#}
+
+    </div>
+</div>

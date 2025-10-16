@@ -1,0 +1,38 @@
+<!-- Thread content -->
+<div class="thread-content mt-3">{{ thread.content }}</div>
+
+<!-- Thread actions -->
+<div class="thread-actions mt-2 mb-3">
+    <button class="btn btn-sm btn-outline-secondary me-1" title="Reply" _="on click toggle .d-none on #comment-form-{{ thread.id }}">
+        <i class="bi bi-reply"></i> Reply
+    </button>
+
+    <!-- Comment form -->
+    <div class="comment-form mt-3 ms-4 d-none" id="comment-form-{{ thread.id }}">
+        {% include "django_discussions/_comment_form.html" %}
+    </div>
+
+{#    <button class="btn btn-sm btn-outline-secondary me-1" title="Share"><i class="bi bi-share"></i> Share</button>#}
+{#    <button class="btn btn-sm btn-outline-secondary me-1" title="Save"><i class="bi bi-bookmark"></i> Save</button>#}
+{#    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" title="More"><i class="bi bi-three-dots"></i></button>#}
+
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#"><i class="bi bi-flag"></i> Report</a></li>
+{#        <li><a class="dropdown-item" href="#"><i class="bi bi-bell"></i> Subscribe</a></li>#}
+    </ul>
+</div>
+
+<!-- Comments section -->
+<div class="comments-container ms-4" id="comments-section">
+
+    {% for comment in thread.comments.all %}
+    {% include "django_discussions/_comment.html" %}
+    {% endfor %}
+
+{#    <!-- Load more comments -->#}
+{#    <div class="text-center">#}
+{#        <button class="btn btn-sm btn-outline-secondary">#}
+{#            <i class="bi bi-chat-dots"></i> Load 2 more comments#}
+{#        </button>#}
+{#    </div>#}
+</div>

@@ -1,0 +1,53 @@
+{% if close_thread_form %}
+<script>
+    document.getElementById('btn-show-new-thread-form').click();
+    document.getElementById('thread-empty-message').innerHTML = '';
+</script>
+{% endif %}
+<li class="list-group-item p-3 discussion-thread">
+
+    <!-- Thread header/title -->
+    <div class="d-flex align-items-start mb-3">
+
+        <!-- voting controls -->
+{#        <div class="flex-shrink-0 me-2 text-center voting-controls">#}
+{#            <button class="btn btn-sm vote-button" title="Upvote"><i class="bi bi-arrow-up"></i></button>#}
+{#            <div class="vote-count my-1"><strong>14</strong></div>#}
+{#            <button class="btn btn-sm vote-button" title="Downvote"><i class="bi bi-arrow-down"></i></button>#}
+{#        </div>#}
+
+
+        <div class="flex-grow-1">
+
+            <!-- Thread title -->
+            <h5 class="mb-1">
+
+                {# this should be an HTMX link to load content into #thread-detail-12345 when clicked #}
+                {# The link with hyperscript toggle behavior #}
+                <a href="{% url 'django_discussions:thread_detail' thread.short_uuid %}"
+                    class="text-decoration-none"
+                    hx-get="{% url 'django_discussions:thread_detail' thread.short_uuid %}"
+                    hx-target="#thread-detail-{{ thread.id }}"
+                    hx-swap="innerHTML"
+                    _="on click
+                      if #thread-detail-{{ thread.id }}.childElementCount > 0
+                        set #thread-detail-{{ thread.id }}.innerHTML to ''
+                        trigger htmx:abort on me
+                        halt the event
+                        return false
+                      end">{{ thread.title }}</a>
+            </h5>
+
+            <!-- Thread author and metadata -->
+            <div class="d-flex flex-wrap align-items-center small text-muted">
+                <span class="me-3"><i class="bi bi-chat"></i> {{ thread.comment_count }}</span>
+                <span class="me-3"><i class="bi bi-calendar3"></i> {{ thread.time_ago }}</span>
+                <span class="me-3"><i class="bi bi-person"></i> Started by <a href="#" class="text-decoration-none">{{ thread.author }}</a></span>
+{#                <span class="badge bg-info me-1">Question</span>#}
+            </div>
+
+        </div>
+    </div>
+
+    <div id="thread-detail-{{ thread.id }}"></div>
+</li>

@@ -1,0 +1,30 @@
+/**
+ * This file contains the CSS styles for the discussion threads and comments.
+ * It includes styles for the thread container, comment sections, and various UI elements.
+ */
+.voting-controls button {
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: #6c757d;
+}
+
+.voting-controls button:hover {
+    color: #0d6efd;
+}
+
+.comment-actions button:hover {
+    color: #495057 !important;
+}
+
+.border-start {
+    border-color: #dee2e6 !important;
+}
+
+.nested-comment .border-start {
+    border-color: #e9ecef !important;
+}
+
+.thread-content, .comment-content {
+    word-break: break-word;
+}
