@@ -1,0 +1,56 @@
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write  # Required for PyPI Trusted Publisher
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Verify version matches tag
+        run: |
+          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          TAG=${GITHUB_REF#refs/tags/v}
+          echo "Package version: $VERSION"
+          echo "Git tag: $TAG"
+          if [ "$VERSION" != "$TAG" ]; then
+            echo "Error: Version mismatch! pyproject.toml has $VERSION but tag is $TAG"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: |
+          uv pip install --system -e ".[dev]"
+          uv pip install --system Django>=4.2
+
+      - name: Run tests
+        run: |
+          # Run basic import test to ensure package is installable
+          python -c "import django_discussions; print(f'Successfully imported django-threaded-discussions {django_discussions.__version__}')"
+          # Run full test suite
+          PYTHONPATH=. python tests/manage.py test
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          print-hash: true
